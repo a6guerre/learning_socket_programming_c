@@ -10,7 +10,12 @@
 
 int main(void)
 {
-  char server_message[256] =  "You have reached the server!";
+  char recv_buf[256];
+  memset(recv_buf, 0, 256);
+  char out_buf[256];
+  memset(out_buf, 0, 256); 
+
+  int recv_len, j, k = 0;
 
   int server_socket;
   server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -27,11 +32,25 @@ int main(void)
   int client_socket;
   client_socket = accept(server_socket, NULL, NULL);
  
-  char *msg = "Hello from server";
+  // init client protocol
+  char *msg = "*";
   size_t len = strlen(msg);
 
   send(client_socket, msg, len, 0);
-  
+ 
+  do
+  {
+    recv_len = recv(client_socket, recv_buf, sizeof(recv_buf), 0);
+    printf("Received from client: %s %d bytes\n", recv_buf, recv_len);
+    for(int i = 0; i < recv_len; ++i)
+    {
+      out_buf[k] = recv_buf[i];
+      ++k;
+    }
+    out_buf[k] = '\0';
+    send(client_socket, out_buf, strlen(out_buf), 0);
+  }while(0);
+
   close(server_socket);
 
   return 0;

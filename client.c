@@ -24,6 +24,14 @@ int main(void)
   recv(sock, buf, sizeof(buf), 0);
 
   printf("Response: %s\n", buf);
+
+  char out_buf[256] = "Hello from client";
+  send(sock, out_buf, strlen(out_buf), 0);
+  memset(buf, 0, 256);
+  recv(sock, buf, sizeof(buf), 0);
+
+  printf("Received message from server: %s\n", buf);
+
   close(sock);
 
   return 0;
