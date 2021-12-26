@@ -6,7 +6,9 @@ For the multithreaded server example, the exercise was derived from a post I cam
 Please read part one to acquint yourself with the protocol. The server implements a protocol in which the client can trigger state transitions in  a state machine. There are two states, )) the server is waiting for a message. 2) Server is recieiving a message and will construct a response to the client based on the message.
 
 To run:
+
 cd multithreaded_server_client/
+
 make
 
 ./server
