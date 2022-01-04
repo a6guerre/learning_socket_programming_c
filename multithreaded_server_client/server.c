@@ -99,7 +99,7 @@ int main(void)
   bind(server_socket, (struct sockaddr *) &server_address, sizeof(server_address));
   listen(server_socket, 5);
 
-  int *client_socket = (int *)malloc(sizeof(int));
+  int *client_socket = (int *)malloc(sizeof(int)*256);
 
   pthread_t threads[50];
   int i = 0;
@@ -113,6 +113,7 @@ int main(void)
     }
     pthread_detach(threads[i]);
     ++i;
+    ++client_socket;
   }
 
 
